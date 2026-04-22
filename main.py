@@ -11,25 +11,35 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    #screen.fill("black")
-    #pygame.display.flip()
 
-    #def run_game():
+    # Sets the clock to pygame.time.Clock and sets variable dt for delta time
+
+    clock = pygame.time.Clock()
+    dt = 0
+
+    # Infinite Game Loop
 
     while True:
         log_state()
-            
-            #screen.fill("black")
-            #pygame.display.flip()
+
+        # Makes the X-Button of the game window close the application
             
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        
+        # Makes the screen black
 
         screen.fill("black")
-        pygame.display.flip()            
+        pygame.display.flip()     
 
-    #display.flip()
+        # Limits the FPS to 60 and sets the delta time to the latest delta and coverts output of
+        # clock tick from milliseconds to seconds
+
+        dt = clock.tick(60) /1000.0
+
+
+
 
 
 
