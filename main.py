@@ -1,6 +1,9 @@
 import pygame
 from constants import SCREEN_WIDTH
 from constants import SCREEN_HEIGHT
+from constants import PLAYER_RADIUS
+from constants import LINE_WIDTH
+from player import Player
 from logger import log_state
 
 def main():
@@ -16,6 +19,11 @@ def main():
 
     clock = pygame.time.Clock()
     dt = 0
+    
+    player = Player(
+        SCREEN_WIDTH / 2,
+        SCREEN_HEIGHT / 2
+    )
 
     # Infinite Game Loop
 
@@ -31,6 +39,7 @@ def main():
         # Makes the screen black
 
         screen.fill("black")
+        player.draw(screen)
         pygame.display.flip()     
 
         # Limits the FPS to 60 and sets the delta time to the latest delta and coverts output of
