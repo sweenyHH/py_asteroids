@@ -1,7 +1,7 @@
 import pygame
 from constants import SCREEN_WIDTH
 from constants import SCREEN_HEIGHT
-from constants import PLAYER_RADIUS
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED
 from constants import LINE_WIDTH
 from player import Player
 from logger import log_state
@@ -38,6 +38,7 @@ def main():
         
         # Makes the screen black
 
+        player.update(dt)
         screen.fill("black")
         player.draw(screen)
         pygame.display.flip()     
