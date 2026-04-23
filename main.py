@@ -3,8 +3,12 @@ from constants import SCREEN_WIDTH
 from constants import SCREEN_HEIGHT
 from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED
 from constants import LINE_WIDTH
+from asteroids import Asteroids
+from asteroidfield import AsteroidField
 from player import Player
 from logger import log_state
+from logger import log_event
+import sys
 
 def main():
     VERSION = pygame.version.ver
@@ -19,11 +23,24 @@ def main():
 
     clock = pygame.time.Clock()
     dt = 0
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()  
+    
+    Player.containers = (updatable, drawable)
+    Asteroids.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
+    
+    asteroidfield = AsteroidField()
+
     
     player = Player(
         SCREEN_WIDTH / 2,
         SCREEN_HEIGHT / 2
     )
+
+    #player.containers = (updatable, drawable)
 
     # Infinite Game Loop
 
@@ -38,9 +55,21 @@ def main():
         
         # Makes the screen black
 
-        player.update(dt)
+        updatable.update(dt)
+
+        for objects in asteroids:
+            if player.collides_with(objects) == True:            
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
+            
+
+
+
         screen.fill("black")
-        player.draw(screen)
+
+        for things in drawable:
+            things.draw(screen)
         pygame.display.flip()     
 
         # Limits the FPS to 60 and sets the delta time to the latest delta and coverts output of
