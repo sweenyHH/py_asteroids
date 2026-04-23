@@ -60,7 +60,7 @@ def main():
         # Makes the screen black
 
         updatable.update(dt)
-
+        
         for objects in asteroids:
             if player.collides_with(objects) == True:            
                 log_event("player_hit")
